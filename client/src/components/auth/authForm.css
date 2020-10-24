@@ -1,0 +1,30 @@
+form {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+
+.username {
+  color: blue;
+  background-color: white;
+}
+
+
+
+
+.password{
+  color: blue;
+}
+
+
+
+
+
+.submit_button{
+  color: blue;
+}
+
+.form {
+background-color: red;
+}

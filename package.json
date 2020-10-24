@@ -1,0 +1,27 @@
+{
+  "name": "mern_crud1",
+  "version": "1.0.0",
+  "description": "MERN CRUD app1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OG-Miller/MERN-CRUD.git"
+  },
+  "author": "Gavin Miller",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OG-Miller/MERN-CRUD/issues"
+  },
+  "homepage": "https://github.com/OG-Miller/MERN-CRUD#readme",
+  "dependencies": {
+    "dom": "0.0.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.9",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0"
+  }
+}
