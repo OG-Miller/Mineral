@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');// auth token to signify user is logged in
 const User =  require('../models/user');
 
 // create a user
-router.post("/", async (req, res) => {
+router.post("/*", async (req, res) => {
   const { username, password } = req.body;
   if( password.length < 6 ) {
     res.status(500).json({msg: 'Password length must be greater than 6 characters.' });
@@ -16,17 +16,17 @@ router.post("/", async (req, res) => {
   let newUser = new User({
     username,
     passwordHash: bcrypt.hashSync(password, 10), // 10 'salting' the password disguises . sync means it will block the remaining code until it is finished.
-    mines: 0
+    numMines: 0
   });
 
   newUser
-    .save()
+    .save() // how mongoose updates a document
     .then(user => {
-      jwt.sign({
+      jwt.sign({  // creating unique user webtoken for session?
         username: newUser.username
       }, 'secret', (err, token) => {
         if (err) throw err;
-        res.send({
+        res.send({ //send back the token
           token,
           user: {
             username: user.username
@@ -45,12 +45,12 @@ router.post("/login",(req, res) => {
   User.findOne( { username } )
     .then(user => {
       if(!user){
-        res.status(500).json({msg: "No User with that username " + username});
+        res.status(500).json({msg: "No User with the username " + username});
         return;
-      } else if (bcrypt.compareSync(password, user.passwordHash)) {
+      } else if (!bcrypt.compareSync(password, user.passwordHash)) {
         res.status(500).json({msg: "Invalid Password"});
       }
-
+// if they get through previous steps(i.e. username&pass are correct) then they are assigned a token
       jwt.sign({
         username: newUser.username
       }, 'secret', (err, token) => {

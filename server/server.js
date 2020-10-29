@@ -1,39 +1,34 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const mine = require('./models/mine');
 const app = express();
 const auth = require('./middleware/auth');
-require('dotenv').config();
-
-console.log(process.env);
-
+//  const cors = require('cors')
 const API_PORT = process.env.PORT || 8080;
 
-
+// app.use(cors());
 app.use(express.json());  
 
-const dbUser = process.env.DB_USER;
-const dbPass = process.env.DB_PASS;
 
-const dbPath = `mongodb+srv://${dbUser}:${dbPass}@test-cluster.m2aat.mongodb.net/Mineral?retryWrites=true&w=majority`;
-
+const dbPath = process.env.DB_PATH;
+console.log(__dirname + './env');
+//console.log(require('dotenv').config());
 // app.get("/:name", (req, res) => {
 //   res.send("Hello, " + req.params.name);
 // });
 
 
-
 mongoose.connect(dbPath, {
-  dbName: "Mineral",
+  dbName: "saturday",
   useNewUrlParser: true,
   useCreateIndex: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true 
 }).then(() => {
    console.log("Connected to Database");
 }).catch((err) => console.log(err));
 
 // remember to require(auth) at top of page
-app.all('/api/*', auth); // this is the function we want to call when any function makes that api call
+app.all('/api/*', auth); // this is the function we want to call when any function hits that api value
 //this ensures that the user is authenticated before going onto any other routes.
 // this pulls in the router for both routes
 app.use('/api/mines', require('./routes/mines'));

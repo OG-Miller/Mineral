@@ -12,6 +12,7 @@ const AuthForm = (props) => {
 
 
   const authenticate = async () => {
+    console.log("here");
     const basePath = '/api/auth/'; // path for user authentication route in the server side api
     let url = basePath;
 
@@ -25,11 +26,13 @@ const AuthForm = (props) => {
     const response = await fetch(url, {
       method: "POST",
       headers: {'content-type': 'application/json'},
+     // headers: {'content-type': 'application/json', 'Access-Control-Allow-Origin': 'https://localhost:3000'},
       body: JSON.stringify({username, password})
     });
 
     const json = await response.json();
     console.log(json);
+    console.log("this!!" + response);
     if(response.ok) {
       setAuthToken(json.token);
       setUserName(json.user.username); // auth context provider
@@ -39,7 +42,7 @@ const AuthForm = (props) => {
     }
   }
 
-  useEffect( () => {
+  useEffect(() => {
     if(props.action) {
       setAction(props.action);
     } else {
@@ -53,6 +56,7 @@ const AuthForm = (props) => {
   
 // we want to see if the user_name exists inside the auth state/ auth context; if it does then we redirect,
 // otherwise we want to render the form
+
 if(user_name){
   // redirect to the homepage
 
@@ -60,6 +64,7 @@ if(user_name){
 
 
 
+//<form method="post">
 
 return (
   <div>
@@ -79,7 +84,7 @@ return (
       className="password"
       placeholder="Password"
       type="password" 
-      autoComplete= "on"
+      autoComplete= "off"
       name ="password" 
       value={password}
       onChange={(e) => setPassword(e.target.value)}

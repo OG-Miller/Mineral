@@ -14,7 +14,7 @@ function App() {
   const [ username, setUsername ] = useState(existingUsername);
  
   //the following two functions are responsible for setting cookies in local storage.
-  // they are the functions that are called in AuthForm.js line 8
+  // they are the functions that are called in AuthForm.js ~line 8
   const setUserName = (data) => {
     if(!data) {
       localStorage.removeItem('username');// this handles logging out for example
